@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>VA ABC Drop Predictor</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        /* Style for the popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: black;
+            /* Change popup background to white */
+            padding: 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            width: 70%;
+            /* Adjust the width as needed */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-content {
+            color: white;
+        }
+
+        /* Style for buttons */
+        button {
+            padding: 5px 10px;
+            border: 2px solid white;
+            /* Add white outline */
+            background-color: transparent;
+            color: white;
+            cursor: pointer;
+            width: min-content;
+            margin-left: auto;
+            margin-right: auto;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            /* Add transition effect */
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: white;
+            /* Add hover background color */
+            color: black;
+            /* Change text color on hover */
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h1>VA ABC Drop Predictor</h1>
+    <p>Next Potential Drop: <span id="predicted-date"></span></p>
+
+    <!-- Button to show the popup -->
+    <button id="show-popup">Disclaimer</button>
+
+    <!-- Popup -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <div>
+                <p>This site is not affiliated with the Virginia Alcoholic Beverage Control Authority (ABC).</p>
+
+                <p>We do not guarantee the accuracy of the predictions.</p>
+
+                <p>Predictions are made using <a href="https://en.wikipedia.org/wiki/Linear_regression">Linear
+                        Regression</a></p>
+
+                <p>This site was created by <a href="https://github.com/TheRedSpy15">TheRedSpy15</a></p>
+            </div>
+            <br>
+            <button id="close-popup">Close</button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $.get("/predict", function (data) {
+                $("#predicted-date").text(data.predicted_next_date);
+            });
+
+            // Show the popup when the button is clicked
+            $("#show-popup").click(function () {
+                $("#popup").show();
+            });
+
+            // Close the popup when the close button is clicked
+            $("#close-popup").click(function () {
+                $("#popup").hide();
+            });
+        });
+    </script>
+</body>
+
+</html>
