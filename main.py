@@ -1,5 +1,5 @@
 import numpy as np
-from scikit-learn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression
 from datetime import datetime, timedelta
 from flask import Flask, jsonify
 
